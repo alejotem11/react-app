@@ -5,7 +5,7 @@ before_install:
   - docker build -t alejotem11/react-app-test -f ./react-app/Dockerfile.dev ./react-app
 script:
   - docker run alejotem11/react-app-test npm test -- --coverage
-after_succes:
+after_success:
   - docker build -t alejotem11/react-app ./react-app
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push alejotem11/react-app
