@@ -1,0 +1,11 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t alejotem11/react-app-test -f Dockerfile.dev ./react-app
+scripts:
+  - docker run alejotem11/react-app-test npm test -- --coverage
+after_succes:
+  - docker build -t alejotem11/react-app ./react-app
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push alejotem11/react-app
